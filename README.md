@@ -6,7 +6,7 @@
 
 [English](/README.md) | [简体中文](/README-zh.md)  
 
-**Ansible Cloud Installer**, developed by [Websoft9](https://www.websoft9.com), is an automatic installation program of [Apache Ansible](https://ansible.apache.org/) based on Ansible and shell. It helps user install Ansible and pre-configure required items automatically and users only need to run a command on Linux. It simplifies the complicated installation and initialization process.  
+**Ansible Cloud Installer**, developed by [Websoft9](https://www.websoft9.com), is an automatic installation program of [Ansible](https://www.ansible.com/) based on Ansible and shell. It helps user install Ansible and pre-configure required items automatically and users only need to run a command on Linux. It simplifies the complicated installation and initialization process.  
 
 ## System Requirement
 
@@ -19,11 +19,11 @@ System Requirement to install this repository are as following：
 | Private Cloud     | KVM, VMware, VirtualBox, OpenStack    | Optional                 |
 | Server Configuration | vCPU no less than 1 core, Memory no less than  2 GIB, Storage no less than 10 GB, Bandwidth no less than 100M ||
 
-To learn more information, please view [Installation & Configuration](https://ansible.apache.org/installation.html).
+To learn more information, please view [Installation & Configuration](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#prerequisites).
 
 ## Ecosystem
 
-Core components of this repository: Apache Ansible, Nginx, PostgreSQL, Docker, phpPgAdmin on docker
+Core components of this repository: Ansible latest stable, Python3
 
 Learn more about [Parameters](/docs/stack-components.md).
 
@@ -70,7 +70,8 @@ Yes.
 
 #### How to install and view the latest release?
 
-Get the Ansible version from [Ansible repository](https://github.com/apache/incubator-ansible/releases), and modify the Ansible variable **[rabbitmq_version](/roles/ansible/ansible/defaults/main.yml)** to change the Ansible version for this repository. 
+Get the Ansible version from [Ansible repository](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html),
+ansible version, get through page [Github](https://github.com/ansible/ansible/tags). 
 
 #### Is the default password safe?
 
