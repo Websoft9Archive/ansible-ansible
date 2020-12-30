@@ -1,18 +1,45 @@
-#全局
-region: "1"
+# Global
+region: "0"
 
-w9panel_webs: apache
-9panel_set_infrastructure: LAMP
-9panel_set_apps: 
-    - Example
+common_os_support: ["CentOS", "Ubuntu", "Amazon", "OracleLinux"]
 
-# MySQL 默认密码
+apache_certbot: True
+nginx_certbot: True
+
+nginx_reverse_proxy_port: "8065"
+
+# role_mysql
+mysql_version: "5.7"       
 mysql_root_password: "123456"
-phpmyadmin_webs: apache
-phpmyadmin_mysql_password: "123456"
-  
-# 初始化MySQL root密码
+mysql_remote: True
+
+# docker
+docker_applications: 
+  - phpmyadmin
+
+# add databases and users
+mysql_databases:
+ - name: ansible
+ 
+mysql_users:
+ - name: ansible
+   host: localhost
+   priv: 'ansible.*:ALL'
+
+# init passsword of database
 init_db: 
     mysql:
-      user: root
-      password: "123456" 
+      admin: root
+      user: ["ghost"]
+      password: "123456"  
+  
+# init password of applications
+init_application:
+  ansible:
+    service: ansible
+    database: ansible 
+    database_user: ansible
+    database_host: localhost
+    database_password: "123456"
+    config_path:
+      - /opt/ansible/config/config.json
