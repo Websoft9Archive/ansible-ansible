@@ -16,7 +16,7 @@
         dest: /data/apps/ansible
         force: yes
 
-    roles:
+  roles:
     - {role: role_common, tags: "role_common"}  
     - {role: role_cloud, tags: "role_cloud"}  
     - {role: role_python, tags: "role_python"}   
