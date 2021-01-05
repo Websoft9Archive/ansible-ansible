@@ -10,29 +10,11 @@
   vars_files:
     - vars/main.yml
   
-  vars_prompt:
-    - name: 'rabbitmq_selection'
-      prompt: "Choose the Ansible distribution \n
-      1: Ansible 5 Classic\n
-      2: Ansible Artemis\n"
-      private: no
-      default: 1
-
-  vars:
-    rabbitmq_select:
-      '1': "classic"
-      '2': "artemis"
-
-    rabbitmq_distribution: "{{rabbitmq_select[rabbitmq_selection]}}"
-  
   pre_tasks:
-    - debug:
-        msg: Will install {{rabbitmq_distribution}}
+    - copy:
+        src: package
+        dest: /data/apps/ansible
+        force: yes
 
   roles:
-    - {role: role_common, tags: "role_common"}  
-    - {role: role_cloud, tags: "role_cloud"}  
-    - {role: role_jdk, tags: "role_jdk"}  
     - {role: ansible, tags: "ansible"}
-    - {role: role_preend, tags: "preend"}
-    - {role: role_end, tags: "role_end"}
