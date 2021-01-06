@@ -1,5 +1,5 @@
 # 核心任务
-- name: main
+- name: Test
   hosts: all
   become: yes
   become_method: sudo  
@@ -51,6 +51,10 @@
     
     phpmyadmin_install_docker: "{{phpmyadmin_select[phpmyadmin_selection]}}" 
     mysql_remote: '{{remote_select[remote_selection] or phpmyadmin_select[phpmyadmin_selection]}}'
+
+    pre_tasks:
+      - debug: var=ansible_eth0.ipv4.address
+      - debug: var=ansible_date_time
 
   roles:
     - {role: test, tags: "test"} 
