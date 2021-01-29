@@ -1,0 +1,28 @@
+---
+- name: Test
+  hosts: all
+  become: yes
+  become_method: sudo  
+
+  vars_prompt:
+      - name: 'fruit_selection'
+        prompt: "\nPlease choose a fruit [ 1/2] \n\n
+        1: Apple\n
+        2: Banana\n
+        3: Pear\n"
+        private: no
+        default: 1
+
+  vars:
+    fruit_select:
+      '1': 'apple'
+      '2': 'banana'
+      '3': 'pear'
+    fruit_type: "{{fruit_select[fruit_selection]}}" 
+  
+  tasks:
+      - debug: msg="The fruit you choose is {{ fruit_type }}" 
+
+  roles:
+    - {role: role_test, tags: "role_test"} 
+    
