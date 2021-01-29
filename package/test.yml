@@ -6,7 +6,7 @@
 
   vars_prompt:
       - name: 'fruit_selection'
-        prompt: "\nPlease choose a fruit [ 1/2] \n\n
+        prompt: "\nPlease choose a fruit [ 1/2/3] \n\n
         1: Apple\n
         2: Banana\n
         3: Pear\n"
