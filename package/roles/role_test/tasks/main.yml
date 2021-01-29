@@ -1,0 +1,13 @@
+---
+# tasks file for role_test
+
+- name: Get system status information
+  debug: 
+    var=ansible_distribution
+    var=ansible_distribution_version
+
+- name: Get ipv4 address 
+  debug: var=ansible_default_ipv4
+
+- name: Get system time
+  debug: var=ansible_date_time
