@@ -8,8 +8,10 @@ Ansible 预装包包含 Ansible 运行所需一序列支撑软件（简称为“
 
 ## 路径
 
-Ansible 安装目录： */data/ansible*  
-Ansible 示例目录： */data/logs/ansible*  
+Ansible 配置文件： */etc/ansible/ansible.cfg*  
+Ansible 示例目录： */data/apps/ansible*  
+
+> 可创建 ansible.cfg 到用户家目录或当前工作目录。优先级：当前工作目录 > 用户家目录 > etc 目录
 
 ## 端口号
 

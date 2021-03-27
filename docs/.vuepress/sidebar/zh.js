@@ -13,20 +13,19 @@ module.exports = [
   },
   
   {
-    title: '实践指南',
+    title: '系统管理',
     collapsable: false,
     children: [
-      '/zh/solution-smtp',
-      '/zh/solution-https',
+      '/zh/study-basic',
+      '/zh/study-config',
       '/zh/solution-cli',
       '/zh/solution-backup',
       '/zh/solution-upgrade',
-      '/zh/solution-more',
     ]
   },
   
   {
-    title: '配置参考',
+    title: '功能运用',
     collapsable: false,
     children: [
       '/zh/admin-services',
