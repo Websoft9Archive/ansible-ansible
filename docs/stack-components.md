@@ -66,19 +66,6 @@ sudo cat /data/logs/install_version.txt
 # Linux Version
 lsb_release -a
 
-# Nginx  Version
-nginx -V
-
-# Java version
-java -v
-
-# Docker Version
-docker -v
-
-# erlang  Version
-yum info erlang
-apt show erlang
-
-# Ansible version
-rabbitmqctl status | grep Ansible*
+# Ansible  Version
+ansible --version
 ```

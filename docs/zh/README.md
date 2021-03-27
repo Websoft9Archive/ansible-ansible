@@ -6,9 +6,9 @@ home: false
 
 本文档由 [Websoft9](https://www.websoft9.com/) 公司提供，用于指导用户学习 Ansible 的安装部署与基本运维技术，包括：Ansible部署、初始化安装、环境配置、HTTPS、SMTP、备份升级和连接云服务器操作等基本操作。
 
-[Ansible](https://www.ansible.com) 流行的开源消息队列系统，用erlang语言开，是AMQP（高级消息队列协议）的标准实现。用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗。
+[Ansible](https://wansible.com) 是一个易读非常好的自动化运维开发语言以及技术体系，它基于 Python，提供数千个管理基础设施的模块，使得用户无需深厚的技术背景，也可以完成服务器部署、网络配置、云资源管理等相关的工作。借助 Ansible 自动化能力，大大降低技术复杂性，减少重复劳动，让聪明的人专注于核心业务。
 
-![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-gui-websoft9.png)
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-guis-websoft9.png)
 
 ---
 
