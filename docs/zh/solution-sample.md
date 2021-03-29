@@ -378,6 +378,194 @@ tasks:
       msg: "{{ '123123' | password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"
 ```
 
+## 循环
+```
+|循环类型| 关键字|
+|  ----  | ----  |
+|标准循环|with_items|   
+|遍历字典|with_dict|   
+|遍历目录文件|with_fileglob|   
+|遍历文件列表的内容|with_file|   
+|嵌套循环|with_nested|    
+|并行遍历列表|	with_together   |
+|遍历列表和索引	|with_indexed_items|   
+|重试循环	|until|   
+|查找第一个匹配文件|	with_first_found |  
+|随机选择	|with_random_choice|  
+|在序列中循环	|with_sequence |
+
+种类一、标准循环
+添加多个用户，并将用户加入不同的组内。
+- name: add several users
+  user: name={{ item.name }} state=present groups={{ item.groups }}
+  with_items:
+    - { name: 'testuser1', groups: 'wheel' }
+    - { name: 'testuser2', groups: 'root' }
+
+种类二、锚点嵌套循环
+分别给用户授予3个数据库的所有权限
+- name: give users access to multiple databases
+  mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
+  with_nested:
+    - [ 'alice', 'bob' ]
+    - [ 'clientdb', 'employeedb', 'providerdb' ]
+
+种类三、锚点遍历字典
+输出用户的姓名和电话
+tasks:
+  - name: Print phone records
+    debug: msg="User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})"
+    with_dict: {'alice':{'name':'Alice Appleworth', 'telephone':'123-456-789'},'bob':{'name':'Bob Bananarama', 'telephone':'987-654-3210'} }
+
+种类四、锚点并行遍历列表
+tasks:
+  - debug: "msg={{ item.0 }} and {{ item.1 }}"
+    with_together:
+    - [ 'a', 'b', 'c', 'd','e' ]
+    - [ 1, 2, 3, 4 ]
+如果列表数目不匹配，用None补全
+
+种类五、锚点遍历列表和索引
+ - name: indexed loop demo
+    debug: "msg='at array position {{ item.0 }} there is a value {{ item.1 }}'"
+    with_indexed_items: [1,2,3,4]
+item.0 为索引，item.1为值
+
+种类六、锚点遍历文件列表的内容
+---
+- hosts: all
+  tasks:
+       - debug: "msg={{ item }}"
+      with_file:
+        - first_example_file
+        - second_example_file
+
+种类七、锚点遍历目录文件
+with_fileglob匹配单个目录中的所有文件，非递归匹配模式。
+---
+- hosts: all
+  tasks:
+    - file: dest=/etc/fooapp state=directory
+    - copy: src={{ item }} dest=/etc/fooapp/ owner=root mode=600
+      with_fileglob:
+        - /playbooks/files/fooapp/*
+当在role中使用with_fileglob的相对路径时，Ansible解析相对于roles/<rolename>/files目录的路径。
+
+种类八、锚点遍历ini文件
+lookup.ini
+[section1]
+value1=section1/value1
+value2=section1/value2
+
+[section2]
+value1=section2/value1
+value2=section2/value2
+
+- debug: msg="{{ item }}"
+  with_ini: value[1-2] section=section1 file=lookup.ini re=true
+获取section1 里的value1和value2的值
+
+种类九、锚点重试循环 until
+- action: shell /usr/bin/foo
+  register: result
+  until: result.stdout.find("all systems go") != -1
+  retries: 5
+  delay: 10
+"重试次数retries" 的默认值为3，"delay"为5。
+
+锚点查找第一个匹配文件
+  tasks:
+  - debug: "msg={{ item }}"
+    with_first_found:
+     - "/tmp/a"
+     - "/tmp/b"
+     - "/tmp/default.conf"
+依次寻找列表中的文件，找到就返回。如果列表中的文件都找不到，任务会报错。
+
+种类十、锚点随机选择with_random_choice
+随机选择列表中得一个值
+- debug: msg={{ item }}
+  with_random_choice:
+     - "go through the door"
+     - "drink from the goblet"
+     - "press the red button"
+     - "do nothing"
+循环程序的结果
+tasks:
+debug: "msg={{ item }}"
+with_lines: ps aux
+
+种类十一、锚点循环子元素
+定义好变量
+#varfile
+---
+users:
+  - name: alice
+    authorized:
+      - /tmp/alice/onekey.pub
+      - /tmp/alice/twokey.pub
+    mysql:
+        password: mysql-password
+        hosts:
+          - "%"
+          - "127.0.0.1"
+          - "::1"
+          - "localhost"
+        privs:
+          - "*.*:SELECT"
+          - "DB1.*:ALL"
+  - name: bob
+    authorized:
+      - /tmp/bob/id_rsa.pub
+    mysql:
+        password: other-mysql-password
+        hosts:
+          - "db1"
+        privs:
+          - "*.*:SELECT"
+          - "DB2.*:ALL"
+  tasks:
+  - user: name={{ item.name }} state=present generate_ssh_key=yes
+    with_items: "{{ users }}"
+  - authorized_key: "user={{ item.0.name }} key='{{ lookup('file', item.1) }}'"
+    with_subelements:
+      - "{{ users }}"
+      - authorized
+  - name: Setup MySQL users
+    mysql_user: name={{ item.0.name }} password={{ item.0.mysql.password }} host={{ item.1 }} priv={{ item.0.mysql.privs | join('/') }}
+    with_subelements:
+      - "{{ users }}"
+      - mysql.hosts
+{{ lookup('file', item.1) }} 是查看item.1文件的内容
+with_subelements 遍历哈希列表，然后遍历列表中的给定（嵌套）的键。
+
+种类十二、锚点在序列中循环with_sequence
+with_sequence以递增的数字顺序生成项序列。 您可以指定开始，结束和可选步骤值。 参数应在key = value对中指定。 'format'是一个printf风格字符串。
+数字值可以以十进制，十六进制（0x3f8）或八进制（0600）指定。 不支持负数。
+  tasks:
+    # 创建组
+    - group: name=evens state=present
+    - group: name=odds state=present
+    # 创建格式为testuser%02x 的0-32 序列的用户
+    - user: name={{ item }} state=present groups=evens
+      with_sequence: start=0 end=32 format=testuser%02x
+    # 创建4-16之间得偶数命名的文件
+    - file: dest=/var/stuff/{{ item }} state=directory
+      with_sequence: start=4 end=16 stride=2
+    # 简单实用序列的方法：创建4 个用户组分表是组group1 group2 group3 group4
+    - group: name=group{{ item }} state=present
+      with_sequence: count=4
+
+种类十三、锚点随机选择with_random_choice
+随机选择列表中得一个值
+- debug: msg={{ item }}
+  with_random_choice:
+     - "go through the door"
+     - "drink from the goblet"
+     - "press the red button"
+     - "do nothing"
+```
+
 ## 安装
 
 ### yum
