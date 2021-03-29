@@ -23,7 +23,7 @@ module.exports = [
       '/zh/study-playbook',
       '/zh/study-role',
       '/zh/study-collection',
-      ['https://support.websoft9.com/docs/awx/zh','AWX'],
+      ['https://support.websoft9.com/docs/awx/zh','Ansible Tower'],
     ]
   },
   
