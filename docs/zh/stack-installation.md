@@ -33,7 +33,7 @@
 
    ```
 
-2. 运行 `ansibleansible localhost -m setup` 命令，查看本机获取的系统信息
+2. 运行 `ansible localhost -m setup` 命令，查看本机获取的系统信息
    ```
    localhost | SUCCESS => {
     "ansible_facts": {

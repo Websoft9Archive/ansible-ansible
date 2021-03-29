@@ -1,131 +1,180 @@
-# 自动化运维
+---
+sidebarDepth: 3
+---
 
-Linux 命令行操作由于具备可编程，可控制的特征，天生就适合自动化管理。
+# 原理
 
-Linux自动化运维技术有多种，比较流行的包括：Shell脚本、Ansible、Chef等自动化技术。
+本章尽量全面的介绍 Ansible 的原理，将常用的知识点汇聚在一起，以帮助用户在实践中能够充分准确的用好 Ansible。
 
-Websoft9提供的自动化部署以Ansible为核心技术，集合Shell脚本，实现复杂软件部署的全过程自动化。
+## 概述
 
-同时，Linux系统也是非常重要的开发平台，延伸到开发领域的自动化，就诞生了DevOps技术：
+[Ansible](https://github.com/ansible/ansible) 诞生于 2012 年，目前是 RedHat 旗下的产品，是 Github 上受欢迎的自动化运维工具。
 
-![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/linux/devops-process.png)
+从事过运维相关工作的小伙伴，对 Shell 应该是“有爱有恨”的。一方面我们爱它的无所不能，另外一方面我们恨它的语法晦涩难懂，且难以模块化利用。  
 
-> 自动化技术的基石仍然是Linux命令
+Ansible 的作者兼创始人Michael DeHaan 曾经供职于Puppet Labs、RedHat、Michael，在配置管理和架构设计方面有丰富的经验。其在RedHat任职期间主要开发了Cobble，经历了各种系统简化、自动化基础架构操作的失败和痛苦，在尝试了Puppet、Chef、Cfengine、Capistrano、Fabric、Function、Plain SSH等各式工具后，决定自己打造一款能结合众多工具优点的自动化工具，Ansible由此诞生。
 
-## Ansible 
+Ansible 为何如此火爆？首先是当前云计算的大规模应用所驱动，然后就是它的核心特点决定的：
 
-本节不是讲述Ansible的原理，而是用接近文科式的语言，阐述Ansible在实践中容易犯错的技术盲点，纠正错误的认知。  
+* 无需代理也可以控制多台受控机并行管理
+* 采用描述性的语言来使用，非常易读、易编写
+* 兼容 Python 的语法
+* 安装过程简单，学习曲线很平坦
 
-### 箴言
 
-如何成为Ansible高手？
-
-Shell命令是根本，夯实基础稳步走；  
-晦涩理论看一遍，动手实验是正道。  
-经典教材床头放，官方文档经常看；  
-闲时看书有收获，勤动笔来总结多。  
-三人成行有我师，学会提问收获多；  
-疑难问题要会诊，切莫独钻死胡同。  
-稳定简约见功底，数据结构来撑腰；  
-软件没有终结日，长久迭代价值高。  
-
-学会驾驭Ansible，用通用的软件方法论去理解Ansible，千万不要被Ansible的技术术语所牵制。
-
-### Ansible 之 50 问
-
-#### Ansible受控端是否必须提前安装Python？
-
-不是。Ansible的[raw](https://docs.ansible.com/ansible/latest/modules/raw_module.html#raw-module)模块和[script](https://docs.ansible.com/ansible/latest/modules/script_module.html#script-module)模块不依赖于客户端安装的Python来运行。从技术上讲，您可以使用Ansible使用raw模块安装兼容版本的Python ，然后使用该模块使用其他所有模块。例如，如果需要将Python 2引导到基于RHEL的系统上，则可以按以下方式安装它：  
+一种解释排版型语言，易读性极强：  
 
 ```
-ansible myhost --become -m raw -a "yum install -y python2"
-```
-#### 主控端如何安装Ansible最方便？
+- block:
+  - name: Create credentials Folder
+    file:
+      path: /credentials
+      state: directory
 
-推荐采用 pip install ansible
-
-#### Ansible 的应用模块好用吗？例如：Docker, MySQL等
-
-建议弃用，直接使用命令更为稳定可靠，这样可以避免这边模块的版本兼容性问题
-
-#### Ansible中的变量优先级有哪些？
-
-有高到低：ansible命令带入的变量 > cfg配置文件的变量 > 主项目的var变量 > role中的var变量 > role default 变量
-
-#### Ansible有全局变量的概念吗？
-
-没有，但我们可以将：ansible命令带入的变量 | cfg配置文件的变量 | 主项目的var变量 视为全局变量。但特别需要注意的是：Ansible项目中即使有同名变量，它们不会共享一个内存区域，而是各自独占内存（区别于Java等语言变量指针的概念）。
-
-#### Ansible 如何实现模块化？
-
-Ansible Galaxy 就是模块化唯一的方案
-
-#### Ansible 中经常会出现 python-urllib3 之类的报错，如何处理？
-
-python-urllib3 报错大部分情况下，通过 yum install python-urllib3 解决，而不是 pip install
-
-#### Ansible 中的条件判断有哪些可能性？
-
-True, not False, !=none, !="", 
-
-#### Ansbile 中Python Pip apt/yum 总结
-
-1. 客户端和服务端 python版本可以不一致
-2. 升级最新pip版本会导致 pip 命令无法使用 官方解释使用 python3 -m pip install xxx
-3. apt lock 问题可以在脚本中预处理
-
-#### Ansbile 客户端和服务端 Python版本是否可以不一致？
-
-可以
-
-#### pip和pip3共存吗？
-
-可以共存。但建议通过：python3 -m pip install xxx 这样的方式使用Python3下的pip，启用pip3这种表达方式
-
-
-#### 为什么Ansible中apt升级容易导致 lock？
-
-AWS上非常容易出错，建议在脚本中预处理
-
-#### Ansible 之PIP模块是否可以制定Python版本？
-
-可以，参考如下
-
-```
-# Install (Bottle) for Python 3.3 specifically,using the 'pip3.3' executable.
-- pip:
-    name: bottle
-    executable: pip3.3
+  - name: Write Databases Password
+    template:
+      src: password.txt.jinja2
+      dest: /credentials/password.txt
+      mode: 644
 ```
 
-#### dnf 模块现在可以用吗？
+一句话总结：简单易用，功能强大，用途广泛。
 
-现在不建议使用dnf模块
 
-#### 一个Ansible项目中，主入口文件中 *vars_files* 与 *vars* 哪个变量优先级高？
 
-vars_files的优先级更高。需要注意的是Ansible的变量是无法覆盖的，即同名变量在内存中都有单独的存储区域，而Ansible只是通过优先级的方式使用。
+## 应用领域
 
-##### 如何从一个裸机快速运行Ansible项目？
+Ansible 究竟有什么用呢？
 
-下面以 CentOS 为例列出运行 Ansible 项目的步骤：
+我们从运维工程师或开发人员日常工作中最常见的部署来说：为了部署一个应用，我们需要提前安装 Web 服务、应用程序服务、消息队列、缓存系统、数据库、负载均衡等基础软件，与此同时我们还需要通过手工配置，将各个组件连接起来，让它们发挥功效。甚至，站在软件维护的角度，还需要部署日志系统、监控系统、数据库分析系统、数据库审计等维护工具。如果使用手工来完成这些任务，从购买一台云服务器，再到 SSH 登录直至完成所有任务，需要数百个步骤，而且每一个步骤不能出错。  
+
+如果有一个自动化程序能够完成上述任务，那一定会收到用户的热烈欢迎。幸运的，Ansible 就是这样的工具，它比 Shell 简单，它可以轻轻松松处理：
+
+### 配置管理
+
+配置管理即部署部署应用程序环境，包括对 Linux 和 Windows 上进行各种程序安装，系统操作，Web服务管理、应用服务管理、数据库配置等
+
+### 管理云资源
+
+Ansible 提供包括 AWS,Azure等数十个云资源的创建、操作。即无需用户了解每个云平台的 API，也可以轻松管理云资源。
+
+### 监控告警
+
+Ansible 支持对 Grafana、Nagios、Zabbix、Datalog 等系统监控软件进行直接操作。
+
+### 消息发送
+
+Ansible 提供了大量的 [Notification modules](https://docs.ansible.com/ansible/2.9/modules/list_of_notification_modules.html) 用于帮助应用程序发送消息，支持：邮件、Mattermost、RabbitMQ、syslogger等常见的应用。
+
+### 硬件管理
+
+Ansible 可以对网络设备、存储设备进行直接操作，所支持网络品牌包括 Cisco、Aruba、Check Point等多达几十个，支持的存储品牌包括：IBM、Netapp、EMC等
+
+一句话总结：Ansible 可以完成 DevOps 全过程所需的自动化配置工作：  
+
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-fordevops-websoft9.png)
+
+
+## 架构
+
+### 技术架构
+
+**Ansible 技术架构**
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-structure2-websoft9.png)
+
+我们知道，让合适的程序以合适的方式在合适的主机上高效率的运行，是技术架构的出发点。  
+
+Ansible 的技术架构同样遵循这个原理，下面我们从如下三个方面阐述 Ansible 的技术架构：
+
+* **主机**：运行 Ansible 程序的服务器，分为**主控端和受控端**两种类型的主机，主机的在架构中的表现形式为 Host Inventory（主机清单）
+* **程序**：官方内置的软件包被成为为模块和插件，用户自己编写的程序被称之为 Playbook （多个 Playbook 以某种形式组合在一起被成为 roles）
+* **连接**：主控端和受控端之间的连接与控制，一般采用 SSH 连接，支持认证
+
+为什么主机分为主控端（Control Node）受控端（Managed Node）？  
+
+主要是 Ansible 的用途决定的，由于 Ansible 需要考虑同一个程序在同一个时间部署到多个主机上，故在设计上引入的主控端这种角色，用于以集中式的方式向多个受控主机发布配置任务。 
+
+如果不考虑这种场景，Ansible 也支持在本机上运行程序，即主控模式并不是必须的。
+
+
+**Ansible 工作原理**
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-structure-websoft9.png)
+
+用户登录到 Ansible 所在的服务器，便可以使用命令行运行 Ansible 程序。
+
+这里需注意的是前面多次提到过的 Inventory 的概念，Ansible 程序在运行的时候，一定提前准备 Inventory 文件，如果缺少这个文件，Ansible 就只能在本机上运行。
+
+下面就是一个在本机运行 ping 模块的程序，`localhost` 参数告之 Ansible 目标主机是本机
 
 ```
-yum install ansible git -y
-git clone https://github.com/Websoft9/ansible-activemq.git
-cd ansible-activemq
-ansible-galaxy install -r requirements.yml -f
-ansible-playbook activemq.yml -c local
+$ansible localhost -m ping
+
+localhost | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
 ```
 
-#### 条件判断中变量 none,null.undefined 有什么区别？
+如果没有准备好 Inventory，而选用所有主机 （`all` 参数），系统就会报错
+```
+$ansible all -m ping
+43.128.22.14 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
 
-* undefined 代表变量未定义，即变量不存在
-* null 即空字符，varA="" 就代表定义个 null 变量 varA
-* none 空值是Python里一个特殊的值，varA=None 就代表定义了一个 None 的变量 varA。None不能理解为0，因为0是有意义的，而None是一个特殊的空值。
+```
 
-#### jinja2 模板中如何判断一个变量 varA 是否未定义，为空或 false:
-
-使用 {% if varA %} 即可，等同于{% if varA is defined and varA is not none %}
+**Ansible 代码执行过程**
 
 
+### 生态架构
+
+Ansible 是一个卓越的技术产品，也是一个成功的商业软件，它的成功与其商业生态布局有密切关系。  
+
+生态架构的技术基础：
+
+* 模块
+* 插件
+* Python 语法语法兼容性
+* Roles
+
+生态商业整合：
+
+* Ansible Galaxy：开发者共享的代码库（role库）
+  ![Ansible Galaxy](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/Ansible-Galaxy-Blog-Post.png)
+
+* Ansible Collection：开发者共享的应用程序库（完整的 Ansible 应用程序）
+  ![Ansible Galaxy](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-collection-websoft9.png)
+
+* Ansible Tower：企业级可视化 Ansible 管理工具，支持 API。
+  ![Ansible Tower](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
+
+* Ansible Automation Platform：由 RedHat 托管的 Ansible 项目，包含 Ansible Tower 以及自动化资源、自动化分析等企业级功能。
+  ![Ansible Automation Platform](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/redhat-automation-platform_content-collections.png)
+
+
+## 安装
+
+### 主控端
+
+安装之前，需了解是否具备安装条件：
+
+**操作系统要求**：Red Hat, Debian, CentOS, macOS, any of the BSDs等，不支持Windows
+**Python要求**：Python 2 (version 2.7) or Python 3 (versions 3.5 and higher) installed
+
+条件具备之后，只需要一条命令即可安装：
+
+```
+pip install ansible
+或
+yum install ansible
+或
+apt install ansible
+```
+
+### 受控端
+
+* 采用 SSH（默认为SFTP）与 Control Node 通信，如果SSH不可用，通过修改 ansible.cfg 更改通信协议
+* Python支持：Python 2 (version 2.6 or later) or Python 3 (version 3.5 or later).

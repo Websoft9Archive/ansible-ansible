@@ -11,29 +11,6 @@ module.exports = [
           ['https://support.websoft9.com/docs/faq/tech-instance.html','Cloud Server'],
         ]
       },
-      {
-        title: 'Best Practices',
-        collapsable: false,
-        children: [
-          '/solution-smtp',
-          '/solution-https',
-          '/solution-cli',
-          '/solution-backup',
-          '/solution-upgrade',
-          '/solution-more',
-        ]
-      },
-      
-      {
-        title: 'Administrator',
-        collapsable: false,
-        children: [
-          '/admin-services',
-          '/admin-mysql',
-          ['https://support.websoft9.com/docs/linux/lang-erlang.html','Erlang'],
-          ['https://support.websoft9.com/docs/linux/admin-practices.html','Linux'],
-        ]
-      },
       
       {
         title: 'Other',

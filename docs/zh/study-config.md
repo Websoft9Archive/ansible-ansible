@@ -528,7 +528,7 @@ export ANSIBLE_SUDO_USER=root
 
 | 项                | 说明                                                         | 示例                            |
 | ----------------- | ------------------------------------------------------------ | ------------------------------- |
-| log_path          | 日志文件地址，Ansible 默认不记录日志，需自行定义             | log_path = /var/log/ansible.log |
+| log_path          | 日志文件地址，Ansible 默认不记录日志，需自定义             | log_path = /var/log/ansible.log |
 | inventory         | 资源清单（主机列表）文件位置                                 | inventory = /etc/ansible/hosts  |
 | library           | 模块目录，有默认值                                           | library = /usr/share/ansible    |
 | forks             | 工作进程最大值，默认值为 5                                   | forks = 10                      |

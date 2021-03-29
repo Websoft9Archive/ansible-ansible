@@ -13,34 +13,35 @@ module.exports = [
   },
   
   {
-    title: '系统管理',
+    title: '技术原理',
     collapsable: false,
     children: [
       '/zh/study-basic',
       '/zh/study-config',
-      '/zh/solution-cli',
-      '/zh/solution-backup',
-      '/zh/solution-upgrade',
+      '/zh/study-inventory',
+      '/zh/study-cli',
+      '/zh/study-playbook',
+      '/zh/study-role',
+      '/zh/study-collection',
+      ['https://support.websoft9.com/docs/awx/zh','AWX'],
     ]
   },
   
   {
-    title: '功能运用',
+    title: '实战',
     collapsable: false,
     children: [
-      '/zh/admin-services',
-      '/zh/admin-mysql',
-      ['https://support.websoft9.com/docs/linux/zh/lang-erlang.html','Erlang'],
-      ['https://support.websoft9.com/docs/linux/zh/admin-practices.html','Linux'],
+      '/zh/solution-sample',
+      '/zh/solution-test',
     ]
   },
   
   {
-    title: '其他',
+    title: '附录',
     collapsable: false,
     children: [
       '/zh/else-faq',
-      '/zh/else-troubleshooting',
+      '/zh/else-sysenv',
     ]
   },
   

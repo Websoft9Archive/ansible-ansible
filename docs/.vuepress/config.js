@@ -13,12 +13,12 @@ head: [
 locales: {
     '/': {
       lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
-      title: 'Ansible Administrator Guide',
+      title: 'Ansible Guide',
       description: 'You can get the Installation of Image,Administrator,Configuration of the Ansible from this documentation.'
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: 'Ansible 管理员手册',
+      title: 'Ansible 运维实践',
       description: '本文档由 Websoft9 公司提供，用于指导用户学习 Ansible 的安装部署与基本运维技术，包括：部署、初始化安装、环境配置、HTTPS、SMTP、备份升级和连接云服务器操作等基本操作。'
     }
 },
