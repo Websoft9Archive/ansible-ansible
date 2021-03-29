@@ -157,6 +157,13 @@ mysql_configure_extras:
     name: canvas
     comment: canvas
     password_lock: yes
+
+#git克隆需指定分支
+- name: Clone onlyoffice in Websoft9 
+  git:
+    repo: "{{onlyoffice_url}}"
+    dest: "/data/wwwroot/onlyoffice"
+    version: main
 ```
 
 ## 条件判断
@@ -252,6 +259,17 @@ tasks:
 
 ## 过滤器
 ```
+tasks:
+  - debug:
+      #转化为list
+      msg: "{{ testvar | list }}"
+  - debug:
+      #转化为json
+      msg: "{{ testvar | list | to_json }}"
+  - debug:
+      #转化为整数类型
+      msg: "{{ testvar | int}}"
+
 #json_query: 用来过滤数组,json的元素属性
 users:
 - name: tom
