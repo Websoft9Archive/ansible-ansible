@@ -160,8 +160,40 @@ mysql_configure_extras:
 ```
 
 ## 条件判断
-
 ```
+# ansible使用when来进行条件判断
+
+在Ansible中，除了比较运算符，还支持逻辑运算符：
+and：逻辑与，当左边和右边两个表达式同时为真，则返回真
+or：逻辑或，当左右和右边两个表达式任意一个为真，则返回真
+not：逻辑否，对表达式取反
+()：当一组表达式组合在一起，形成一个更大的表达式，组合内的所有表达式都是逻辑与的关系
+
+defined ：判断变量是否已经定义，已经定义则返回真
+undefind ：判断变量是否已经定义，未定义则返回真
+none ：判断变量值是否为空，如果变量已经定义，但是变量值为空，则返回真
+
+success 或 succeeded：通过任务的返回信息判断任务的执行状态，任务执行成功则返回真
+failure 或 failed：通过任务的返回信息判断任务的执行状态，任务执行失败则返回真
+change 或 changed：通过任务的返回信息判断任务的执行状态，任务执行状态为changed则返回真
+skip 或 skipped：通过任务的返回信息判断任务的执行状态，当任务没有满足条件，而被跳过执行时，则返回真
+
+file : 判断路径是否是一个文件，如果路径是一个文件则返回真
+directory ：判断路径是否是一个目录，如果路径是一个目录则返回真
+link ：判断路径是否是一个软链接，如果路径是一个软链接则返回真
+mount：判断路径是否是一个挂载点，如果路径是一个挂载点则返回真
+exists：判断路径是否存在，如果路径存在则返回真
+
+lower：判断包含字母的字符串中的字母是否是纯小写，字符串中的字母全部为小写则返回真
+upper：判断包含字母的字符串中的字母是否是纯大写，字符串中的字母全部为大写则返回真
+
+version：可以用于对比两个版本号的大小，或者与指定的版本号进行对比，使用语法为 version('版本号', '比较操作符')
+subset：判断一个list是不是另一个list的子集，是另一个list的子集时返回真
+superset : 判断一个list是不是另一个list的父集，是另一个list的父集时返回真
+number：判断对象是否是一个数字，是数字则返回真
+
+failed_when: false 此步骤永不失败,用于跳过错误。
+
 #避免重复下载一个大的压缩文件包
 - name: Ansible check file exists
   shell: if [ ! $(ls /data/wwwroot/knowage | grep Knowage-*.sh) ]; then echo "need_download";else echo "downloaded";fi
@@ -201,6 +233,12 @@ tasks:
 - debug:
     msg: "The variable is defined, but there is no value"
   when: testvar1 is none
+
+#判断变量是否在数组中
+- name: Check OS support, if not support, exit ansible
+  fail: msg="OS not supported,exit!"
+  when: ansible_distribution not in common_os_support
+
 ```
 
 ## 正则表达式
