@@ -379,8 +379,7 @@ tasks:
 ```
 
 ## 循环
-```
-|循环类型| 关键字|
+| 循环类型 | 关键字 |
 |  ----  | ----  |
 |标准循环|with_items|   
 |遍历字典|with_dict|   
@@ -393,7 +392,7 @@ tasks:
 |查找第一个匹配文件|	with_first_found |  
 |随机选择	|with_random_choice|  
 |在序列中循环	|with_sequence |
-
+```
 种类一、标准循环
 添加多个用户，并将用户加入不同的组内。
 - name: add several users
