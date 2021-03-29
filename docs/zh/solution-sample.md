@@ -160,6 +160,7 @@ mysql_configure_extras:
 ```
 
 ## 条件判断
+
 ```
 # ansible使用when来进行条件判断
 
