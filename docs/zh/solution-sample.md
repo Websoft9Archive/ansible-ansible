@@ -604,6 +604,11 @@ with_sequence以递增的数字顺序生成项序列。 您可以指定开始，
      - "do nothing"
 ```
 
+## FAQ
+- 变量如何嵌套变量?
+{{jdk_meta_redhat[jdk_version][jdk_distribution].yum_name}}
+在"{{}}"中间有变量的情况下加上"[]"即可。
+
 ## 安装
 
 ### yum
