@@ -56,7 +56,34 @@ playbook 包含几个关键字，每个关键字的含义如下：
 
 ## 模块
 
+模块 Ansible 官方已经编写好了的软件包，是 Ansible 的功能核心。  
+
+正是由于 Ansible 提供了大量的模块，才大大简化运维工作，可以让运维人员只需要少量的 Shell 知识便可以完成复杂的运维任务。  
+
+有两种使用模块的方式：  
+
+在 Playbook 中使用模块：  
+
+```
+- name: restart webserver
+  service:
+    name: httpd
+    state: restarted
+
+```
+
+在 命令行中使用模块：
+
+```
+ansible localhost -m service -a "name=httpd state=started"
+```
+
+查看所有[模块](https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html)
+
 ## 插件
+
+插件是对模块功能的一种补充。
+
 
 ## 变量
 

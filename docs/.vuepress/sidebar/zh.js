@@ -33,6 +33,7 @@ module.exports = [
     children: [
       '/zh/solution-sample',
       '/zh/solution-test',
+      '/zh/solution-performance',
     ]
   },
   
