@@ -78,6 +78,9 @@ sidebarDepth: 3
     - {src: /etc/apache2/sites-enabled,dest: /data/config/apache/sites-enabled}
     - {src: /etc/apache2/mods-enabled,dest: /data/config/apache/mods-enabled}
     - {src: /etc/apache2/sites-enabled,dest: /etc/apache2/vhost}
+
+备注: 有变量嵌套时加入单引号即可; 如下apache_version为变量:
+    - {src: '/etc/apache2/apache_version/',dest: /etc/apache2/apache}
 ```
 
 ### 替换
@@ -158,7 +161,7 @@ mysql_configure_extras:
     comment: canvas
     password_lock: yes
 
-#git克隆需指定分支
+#git克隆并指定分支
 - name: Clone onlyoffice in Websoft9 
   git:
     repo: "{{onlyoffice_url}}"
