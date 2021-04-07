@@ -23,6 +23,13 @@ Websoft9是一个为开源而生的平台，一直在致力于简化全球优质
 
 [我要捐赠](https://www.websoft9.com/aboutus/donate)
 
+## 资源
+
+我们提供了与本文档配套的优秀的 Ansible 自动化配置包，100%开源，非常便于用户安装各种应用。
+
+* [Ansible role](https://github.com/search?q=org%3AWebsoft9+role)
+* [Ansible collection](https://github.com/search?p=2&q=org%3AWebsoft9+ansible&type=Repositories)
+
 ## 合作
 
 Websoft9提供的镜像库已经发布主流云平台，并提供中英文文档，全球云用户可以方便的使用。  

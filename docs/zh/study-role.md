@@ -78,3 +78,7 @@ positional arguments:
 optional arguments:
   -h, --help   show this help message and exit
 ```
+
+## Websoft9 role
+
+Websoft9 提供了包括 Apache,Nginx, MySQL 等数十个常见应用的自动化 [Ansible role](https://github.com/search?q=org%3AWebsoft9+role)， 100%开源，非常便于用户使用。
