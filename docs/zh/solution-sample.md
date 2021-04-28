@@ -252,6 +252,33 @@ tasks:
 
 ```
 
+## 获取管理主机信息
+```
+当我们需要把管理主机获得的信息,到远程主机执行时,可以用如下参数:
+connection、delegate_to、local_action
+# 检查管理主机文件是否存在?
+- name: Check that the compose file exists
+  stat:
+    path: ./roles/role_docker/templates/apps-{{docker_appname}}-compose.yml
+  delegate_to: localhost
+  register: file_status
+
+- name: Check that the compose file exists
+  stat:
+    path: ./roles/role_docker/templates/apps-{{docker_appname}}-compose.yml
+  connection: localhost
+  register: file_status
+
+- name: Check that the compose file exists
+  local_action:
+    stat:
+      path: ./roles/role_docker/templates/apps-{{docker_appname}}-compose.yml
+  connection: localhost
+  register: file_status
+
+ 补充: connection: local 可以针对playbook全局使用，而delegate_to: localhost 只能针对role task等局部代理, local_action 不常用
+```
+
 ## 正则表达式
 
 ```
