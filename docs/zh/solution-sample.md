@@ -266,7 +266,7 @@ connection、delegate_to、local_action
 - name: Check that the compose file exists
   stat:
     path: ./roles/role_docker/templates/apps-{{docker_appname}}-compose.yml
-  connection: localhost
+  connection: local
   register: file_status
 
 - name: Check that the compose file exists
