@@ -20,7 +20,7 @@
 
 ## 组件
 
-包含的核心组件为：可选 Ansible 最新 stable, Python3
+包含的核心组件为：可选 Ansible 最新 stable, Python3, Docker
 
 更多请见 [参数表](/docs/zh/stack-components.md)
 
