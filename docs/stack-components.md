@@ -9,33 +9,16 @@ The Ansible deployment package contains a sequence of software (referred to as "
 Ansible installation directory:  */data/ansible*  
 Ansible logs directory:  */data/logs/ansible*  
 
-### Nginx
+### Python
 
-Nginx vhost configuration file: */etc/nginx/conf.d/default.conf*    
-Nginx main configuration file: */etc/nginx/nginx.conf*   
-Nginx logs file: */var/log/nginx*  
-Nginx rewrite rules directory: */etc/nginx/conf.d/rewrite* 
-
-### MySQL
-
-MySQL installation directory: */usr/local/mysql*  
-MySQL data directory: */data/mysql*  
-MySQL configuration file: */etc/my.cnf*    
-
-MySQL Web Management refer to [MySQL Management](/admin-mysql.md)
+Python source code directory： */usr/lib/python*  
+Python logs directory: */data/logs/python*  
 
 ### Docker
 
 Docker root directory: */var/lib/docker*  
 Docker image directory: */var/lib/docker/image*   
 Docker daemon.json: please create it when you need and save to to the directory */etc/docker*   
-
-###  phpMyAdmin
-
-phpMyAdmin is a visual MySQL management tool, is installed based on docker.  
-
-phpMyAdmin directory：*/data/apps/phpmyadmin*  
-phpMyAdmin docker compose file：*/data/apps/phpmyadmin/docker-compose.yml* 
 
 ## Ports
 
@@ -47,12 +30,8 @@ The following are the ports you may use:
 
 | Name | Number | Use |  Necessity |
 | --- | --- | --- | --- |
-| TCP | 80 | HTTP to access Ansible | Required |
-| TCP | 443 | HTTPS to access Ansible | Optional |
-| TCP | 3306 | Remote to access MySQL | Optional |
-| TCP | 9003 | Use port to access Ansible | Optional |
-| TCP | 9002 | Ansible Document Server on Docker | Optional |
-| TCP | 9090 | phpMyAdmin on Docker | Optional |
+| TCP | 22 | Connect to Server by SSH | Required |
+| TCP | 80 | Use for Web APPS test | Optional |
 
 
 ## Version
@@ -68,4 +47,10 @@ lsb_release -a
 
 # Ansible  Version
 ansible --version
+
+# Docker version
+docker -v
+
+# Python version
+python -V
 ```

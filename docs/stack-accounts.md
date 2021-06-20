@@ -6,17 +6,6 @@ Use the **SSH** to connect your Server and run the command `sudo cat /credential
 
 Here are the required username and password for Ansible image installation and configuration.
 
-## Ansible
-
-* Ansible administrator username: `admin`
-* Ansible administrator password: Get it form the file of your server */credentials/password.txt*
-  > If there no password.txt exist, the administrator password is `admin`
-
-## MySQL
-
-* MySQL administrator username: `root`
-* MySQL administrator password: Get it from the file of your server */credentials/password.txt*  
-
 ## Linux
 
 * Host Name: Server's Internet IP or Public IP of your Instance
@@ -27,7 +16,7 @@ Here are the required username and password for Ansible image installation and c
    | --- | --- | --- |
    |  Azure   |  It was set by yourself when created instance.   | [How to enable root access?](https://support.websoft9.com/docs/azure/server-login.html#sample2-enable-the-root-username) |
    |  AWS CentOS   |  centos   | [How to enable root access?](https://support.websoft9.com/docs/aws/server-login.html#sample2-enable-the-root-username) |
-   |  AWS AmaonLinux   |  ec2-user   | [How to enable root access?](https://support.websoft9.com/docs/aws/server-login.html#sample2-enable-the-root-username) |
+   |  AWS AmazonLinux   |  ec2-user   | [How to enable root access?](https://support.websoft9.com/docs/aws/server-login.html#sample2-enable-the-root-username) |
    |  AWS Ubuntu   |  ubuntu   | [How to enable root access?](https://support.websoft9.com/docs/aws/server-login.html#sample2-enable-the-root-username) |
    |  Alibaba Cloud, HUAWEI CLOUD, Tencent Cloud |  root   |
 

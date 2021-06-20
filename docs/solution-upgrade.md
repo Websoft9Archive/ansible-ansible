@@ -26,4 +26,6 @@ yum update -y --skip-broken
 
 ## Upgrade Ansible
 
-Refer to the official docs: [Upgrading Ansible](https://www.ansible.com/upgrade.html)
+```
+pip install --upgrade ansible
+```

@@ -67,7 +67,13 @@
         "ansible_bios_version": "seabios-1.9.1-qemu-project.org",
         ...
    ```
-3. 以上命令顺利运行，即表明 Ansible 验证通过
+4. 运行服务器上的 playbook 范例
+   ```
+   cd /data/apps/ansible
+   ansible-playbook -i hosts test.yml -c local
+   ```
+
+4. 以上命令顺利运行，即表明 Ansible 验证通过
 
 ## 常见问题
 

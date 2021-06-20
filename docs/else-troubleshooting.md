@@ -8,26 +8,6 @@ If you're having trouble with running Ansible, here is a quick guide to solve mo
 
 You can find the keywords **Failed** or **error** from the logs directory: `/data/logs`
 
-#### Can't start Ansible service?
+#### Credential is correct but always can't connect Managed nodes?
 
-Insufficient disk space and memory, incorrect configuration file may cause the failure to start the service. 
-
-It is recommended to first check through the command.
-
-```shell
-# restart Ansible service
-systemctl status ansible
-journalctl -u ansible
-
-# view disk space
-df -lh
-
-# view memory rate
-free -lh
-```
-
-#### Error in Chrome when modify password?
-
-This error has nothing to do with Ansible server. Just upgrade you local Chrome to solve it.
-
-![chrome error of Ansible](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-chromeerror-websoft9.png)
+Empty all content of file: */root/.ssh/known_hosts*

@@ -8,7 +8,7 @@ This documentation is provided by [Websoft9](https://www.websoft9.com/). It can 
 
 [Ansible](https://ansible-server.apache.org/) is the most widely deployed open source message broker. With more than 35,000 production deployments of Ansible world-wide at small startups and large enterprises, Ansible is the most popular open source message broker.
 
-![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-gui-websoft9.png)
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-guis-websoft9.png)
 
 ---
 

@@ -11,6 +11,16 @@ module.exports = [
           ['https://support.websoft9.com/docs/faq/tech-instance.html','Cloud Server'],
         ]
       },
+
+      {
+        title: 'Best Practices',
+        collapsable: false,
+        children: [
+          '/solution-cli',
+          '/solution-upgrade',
+          '/solution-more',
+        ]
+      },
       
       {
         title: 'Other',

@@ -8,10 +8,23 @@ Ansible 预装包包含 Ansible 运行所需一序列支撑软件（简称为“
 
 ## 路径
 
+### Ansible
+
 Ansible 配置文件： */etc/ansible/ansible.cfg*  
 Ansible 示例目录： */data/apps/ansible*  
 
 > 可创建 ansible.cfg 到用户家目录或当前工作目录。优先级：当前工作目录 > 用户家目录 > etc 目录
+
+### Python
+
+Python 源码目录： */usr/lib/python*  
+Python 日志目录： */data/logs/python*  
+
+### Docker
+
+Docker root directory: */var/lib/docker*  
+Docker image directory: */var/lib/docker/image*   
+Docker daemon.json: please create it when you need and save to to the directory */etc/docker*   
 
 ## 端口号
 
@@ -37,4 +50,10 @@ lsb_release -a
 
 # Ansible  Version
 ansible --version
+
+# Docker version
+docker -v
+
+# Python version
+python -V
 ```

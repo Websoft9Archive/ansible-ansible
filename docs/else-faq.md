@@ -1,31 +1,60 @@
 # FAQ
 
-#### How can I enable the debug mode of Ansible service?
+#### How many Linux distribution  **ansible_os_family** support?
 
 ```
-systemctl stop ansible-server
-ansible-server console
+OS_FAMILY = dict(
+            RedHat = 'RedHat',
+            Fedora = 'RedHat', 
+            CentOS = 'RedHat', 
+            Scientific = 'RedHat',
+            SLC = 'RedHat', 
+            Ascendos = 'RedHat', 
+            CloudLinux = 'RedHat', 
+            PSBM = 'RedHat',
+            OracleLinux = 'RedHat', 
+            OVS = 'RedHat', 
+            OEL = 'RedHat', 
+            Amazon = 'RedHat',
+            XenServer = 'RedHat', 
+            Ubuntu = 'Debian', 
+            Debian = 'Debian', 
+            SLES = 'Suse',
+            SLED = 'Suse', 
+            OpenSuSE = 'Suse', 
+            SuSE = 'Suse', 
+            Gentoo = 'Gentoo',
+            Archlinux = 'Archlinux', 
+            Mandriva = 'Mandrake', 
+            Mandrake = 'Mandrake',
+            Solaris = 'Solaris', 
+            Nexenta = 'Solaris',  
+            OmniOS = 'Solaris', 
+            OpenIndiana = 'Solaris',
+            SmartOS = 'Solaris', 
+            AIX = 'AIX', 
+            Alpine = 'Alpine', 
+            MacOSX = 'Darwin',
+            FreeBSD = 'FreeBSD', 
+            HPUX = 'HP-UX'
+        )
 ```
 
-#### Can I reset password of Ansible by command?
+#### How is ansible installed?
 
-Yes, e.g `rabbitmqctl change_password  admin newpassword`
+pip
 
-#### If there is no domain name, can I deploy Ansible?
+#### Can I install software in the Server the same with Ansible?
 
-Yes, access Ansible by *http://Server's Internet IP:8161*.
+Yes, Ansible not only for Control node / Managed nodes mode
 
-#### What is the password for the database root user?
+#### What is the password for the database postgres user?
 
-The password is stored in the server related file `/credentials/password.txt`.
+The password is stored in the server related file: */credentials/password.txt*
 
-#### Is there a web-base GUI database management tool?
+#### Is there a web-base GUI Ansible management tool?
 
-Yes, phpMyAdmin is included. Visit by *http://Server's Internet IP:9090*.
-
-#### Is it possible to modify the source path of Ansible?
-
-No.
+No, you should install it by yourself, refer to [Ansible GUI](solution-more.md#ansible-gui)
 
 #### How to change the permissions of filesystem?
 
