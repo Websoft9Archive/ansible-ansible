@@ -38,10 +38,11 @@ module.exports = [
   },
   
   {
-    title: '附录',
+    title: '其他',
     collapsable: false,
     children: [
       '/zh/else-faq',
+      '/zh/else-troubleshooting',
       '/zh/else-sysenv',
     ]
   },

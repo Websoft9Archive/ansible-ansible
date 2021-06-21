@@ -8,26 +8,11 @@
 
 日志文件路径为：`/data/logs`。检索关键词 **Failed** 或者 **error** 查看错误
 
-#### Ansible服务无法启动？
+#### Ansible 中经常会出现 python-urllib3 之类的报错，如何处理？
 
-服务无法启动最常见的问题包括：磁盘空间不足，内存不足，配置文件错误。  
-建议先通过命令进行排查  
+python-urllib3 报错大部分情况下，通过 yum install python-urllib3 解决，而不是 pip install
 
-```shell
-# 查看磁盘空间
-df -lh
+#### 账号准确无误，仍然无法连接受控机？
 
-# 查看内存使用
-free -lh
-
-# 查看服务状态和日志
-systemctl status ansible
-journalctl -u ansible
-```
-
-#### 在Chrome下修改密码后报错？
-
-这个并不是服务器端的问题，只要更新浏览器即可。
-
-![chrome error of Ansible](https://libs.websoft9.com/Websoft9/DocsPicture/zh/ansible/ansible-chromeerror-websoft9.png)
+清空服务器中的 */root/.ssh/known_hosts* 文件
 

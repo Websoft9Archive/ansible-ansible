@@ -84,10 +84,6 @@ ansible myhost --become -m raw -a "yum install -y python2"
 
 Ansible Galaxy 就是模块化唯一的方案
 
-#### Ansible 中经常会出现 python-urllib3 之类的报错，如何处理？
-
-python-urllib3 报错大部分情况下，通过 yum install python-urllib3 解决，而不是 pip install
-
 #### Ansible 中的条件判断有哪些可能性？
 
 True, not False, !=none, !="", 
