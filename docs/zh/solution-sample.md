@@ -703,6 +703,15 @@ with_sequence以递增的数字顺序生成项序列。 您可以指定开始，
     enabled: yes
 ```
 
+### aptitude
+
+aptitude 是 Debian GNU/Linux 系统中, 非常神奇的的软件包管理器,基于 APT 机制, 整合了 dselect 和 apt-get的所有功能, 并提供的更多特性,特别是在依赖关系处理上。
+
+```
+- name: Use aptitude to skip low version dependencies on libxmlsec1-dev installation
+  shell: echo -e "n\ny\n" |aptitude  install libxmlsec1-dev 
+```
+
 ## 交互
 
 处理交互式输入：
