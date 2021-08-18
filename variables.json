@@ -14,5 +14,5 @@
     "en": "Package isntallation",
     "zh": "包安装"
   },
-  "install_url": "https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-rhel-centos-or-fedora"
+  "install_url": "https://docs.ansible.com/ansible/latest/index.html"
 }
