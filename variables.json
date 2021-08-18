@@ -12,7 +12,7 @@
   "components": " Ansible stable, Python3, Docker",
   "install_way": {
     "en": "Package isntallation",
-    "zh": "包安装 "
+    "zh": "包安装"
   },
   "install_url": "https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-rhel-centos-or-fedora"
 }
