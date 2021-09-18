@@ -91,6 +91,15 @@ ansible localhost -m service -a "name=httpd state=started"
 
 ## 条件
 
+Ansible 中使用 `when` 作为条件判断的关键词，条件判断注意事项：
+
+* 变量名不需要双大括号“{{}}”
+* 运算符兼容 jinja2 格式：==, !=, >, >=
+* 支持逻辑运算符：and, or, not
+* 支持变量的定义判断：defined, undefined, none
+
+详情参考：[Ansible条件判断详解](https://www.ityoudao.cn/posts/ansible-conditionals/)
+
 ## 过滤
 
 ## 模板
