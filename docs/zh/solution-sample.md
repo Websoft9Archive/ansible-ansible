@@ -81,6 +81,8 @@ sidebarDepth: 3
 
 备注: 有变量嵌套时加入单引号即可; 如下apache_version为变量:
     - {src: '/etc/apache2/apache_version/',dest: /etc/apache2/apache}
+      如果目标文件夹不存在，不能创建软链接
+    - {src: /etc/apache2,dest: /etc/xuwei/httpd}
 ```
 
 ### 替换
