@@ -43,6 +43,13 @@ sidebarDepth: 3
   shell: if [ ! $( ls | grep "scratch-gui") ]; then touch scratch-gui; fi
   args:
     chdir: /data/wwwroot
+
+
+- name: Create recurse directory
+  file: 
+    path: /data/xuwei/test
+    state: directory
+    recurse: yes
 ```
 
 ### 下载解压
