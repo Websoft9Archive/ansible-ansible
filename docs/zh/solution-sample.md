@@ -6,6 +6,24 @@ sidebarDepth: 3
 
 下面根据常用的场景列出一些代码的范例和技巧：
 
+## 共通属性
+
+Ansible有些属性属于通用属性，适用于所有模块:
+
+```
+- name: Upgrade all packages to the latest version for production
+  apt:
+    name: "*"
+    state: latest
+    only_upgrade: yes
+  register: result // 注册变量
+  until: result.msg.find("Could not get lock /var/lib/dpkg") == -1 // 循环条件判断
+  retries: // 重试次数
+  delay: 10 // 重试间隔时间单位s
+  failed_when: "'FAILED' in result.stdout" // 定义错误的条件，满足该条件终止
+  when: common_system_upgrade and (init == '1' or init == 1) // 普通条件判断
+```
+
 ## 文件管理
 
 ### 管理目录
