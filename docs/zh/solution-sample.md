@@ -741,7 +741,7 @@ aptitude 是 Debian GNU/Linux 系统中, 非常神奇的的软件包管理器,�
 
 ## 交互
 
-处理交互式输入：
+与交互有关的有：pause, expect, prompt 等，各自的用法为：
 
 ```
 - block:
@@ -756,4 +756,9 @@ aptitude 是 Debian GNU/Linux 系统中, 非常神奇的的软件包管理器,�
       deb: "https://libs.websoft9.com/apps/Odoo/{{ prompt.user_input | b64encode }}/odoo_{{odoo_version}}_e_latest_all.deb"
       autoclean: yes
     when: odoo_distribution == "ee"
+    
+vars_prompt:
+  - name: release_version
+    prompt: Product release version
+    default: "1.0"
 ```
